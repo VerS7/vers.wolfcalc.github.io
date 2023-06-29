@@ -1,0 +1,57 @@
+:root {
+    font-family: sans-serif;
+}
+
+body {
+    background: var(--color-background);
+    color: var(--color-text);
+    background-image: var(--background-image);
+  }
+
+.callout { 
+background: var(--color-text); 
+color: var(--color-background); 
+} 
+  
+.footer { 
+background: var(--color-background);
+border-top: 2px solid var(--color-text);
+}
+
+.logo {
+    margin: 5px 5px 5px;
+    width: 128px;
+    height: 128px;
+    border-radius: 100px;
+}
+
+.head-label {
+    margin: 32px 25px 20px;
+    font-size: 50px;
+    font-family: "Wolfenstein";
+}
+
+.dial-slider {
+    appearance: slider-vertical; 
+    height: 300px;
+}
+
+.represent-text {
+    font-size: xx-large; 
+    font-weight: bold; 
+    margin: 5px 10px 5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.hydrophone {
+  flex: 0 0 450px;
+}
+
+.tdc {
+    float: left;
+}

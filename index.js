@@ -1,47 +1,51 @@
-(function() {
-  /**
-   * Корректировка округления десятичных дробей.
-   *
-   * @param {String}  type  Тип корректировки.
-   * @param {Number}  value Число.
-   * @param {Integer} exp   Показатель степени (десятичный логарифм основания корректировки).
-   * @returns {Number} Скорректированное значение.
-   */
-  function decimalAdjust(type, value, exp) {
-    // Если степень не определена, либо равна нулю...
-    if (typeof exp === 'undefined' || +exp === 0) {
-      return Math[type](value);
-    }
-    value = +value;
-    exp = +exp;
-    // Если значение не является числом, либо степень не является целым числом...
-    if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-      return NaN;
-    }
-    // Сдвиг разрядов
-    value = value.toString().split('e');
-    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
-    // Обратный сдвиг
-    value = value.toString().split('e');
-    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+var opts = {
+  angle: -0.25, 
+  lineWidth: 0.28, 
+  radiusScale: 0.87, 
+  pointer: {
+    length: 0.6, 
+    strokeWidth: 0.052, 
+    color: '#000000' 
+  },
+  limitMax: false,     
+  limitMin: false,     
+  colorStart: '#DEDEDE',   
+  colorStop: '#D4D4D4',    
+  strokeColor: '#E0E0E0',  
+  generateGradient: true,
+  highDpiSupport: true,  
+  renderTicks: {
+    divisions: 10,
+    divWidth: 1.5,
+    divLength: 0.64,
+    divColor: '#333333',
+    subDivisions: 10,
+    subLength: 0.35,
+    subWidth: 0.7,
+    subColor: '#666666'
   }
+};
 
-  // Десятичное округление к ближайшему
-  if (!Math.round10) {
-    Math.round10 = function(value, exp) {
-      return decimalAdjust('round', value, exp);
-    };
-  }
-  // Десятичное округление вниз
-  if (!Math.floor10) {
-    Math.floor10 = function(value, exp) {
-      return decimalAdjust('floor', value, exp);
-    };
-  }
-  // Десятичное округление вверх
-  if (!Math.ceil10) {
-    Math.ceil10 = function(value, exp) {
-      return decimalAdjust('ceil', value, exp);
-    };
-  }
-})();
+var target = document.getElementById('dial-gain'); 
+var gauge = new Gauge(target).setOptions(opts); 
+gauge.maxValue = 10; 
+gauge.setMinValue(0);  
+gauge.animationSpeed = 10; 
+gauge.set(0); 
+
+function evaluate(value) {
+    if (document.getElementById("dial-slider").value <= 9) {
+        document.getElementById("dist").textContent = "Very close < 850m";
+    }
+    else {
+        document.getElementById("dist").textContent = `Distance: ${Math.floor((0.99*value-1.80)*5000)}m ± 500m`;
+    }
+}
+
+function gauge_change() {
+    var changer = document.getElementById("dial-slider").value * 0.20;
+    var gain = document.getElementById("gain-value");
+    gauge.set(changer);
+    gain.textContent = `Gain: ${Math.floor10(changer, -1)}`;
+    evaluate(changer);
+}
