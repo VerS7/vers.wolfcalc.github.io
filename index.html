@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" style="background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0)
+  ), url('https://www.havenandhearth.com/img/texpap');">
+<head>
+    <meta charset="UTF-8">
+    <title>Wolfpack game calculator</title>
+</head>
+<body>
+    <h1>Wolfpack Calculator</h1>
+    <div class="dial">
+        <h2 style="margin: 10px 60px 20px;">Hydrophone gain</h2>
+
+        <canvas id="gain-dial" width="300" height="300"></canvas>
+        <input id="changer" type="range" list="markers"
+               min="0" max="50" step="-1" value="0"
+               oninput="gauge_change();"
+               style="appearance: slider-vertical; height: 300px;">
+
+        <datalist id="markers">
+            <option value=0 ></option>
+            <option value=10></option>
+            <option value=20></option>
+            <option value=30></option>
+            <option value=40></option>
+            <option value=50></option>
+        </datalist>
+    </div>
+    <div class="info">
+        <p id="dist" style="font-size: xx-large; font-weight: bold; margin: 5px 10px 5px;">Distance:</p>
+        <p id="gain-value" style="font-size: xx-large; font-weight: bold; margin: 5px 10px 5px;">Gain:</p>
+    </div>
+</body>
+<script src="http://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+<script src="index.js"></script>
+<script>
+    var opts = {
+      angle: -0.25, // The span of the gauge arc
+      lineWidth: 0.28, // The line thickness
+      radiusScale: 0.87, // Relative radius
+      pointer: {
+        length: 0.6, // // Relative to gauge radius
+        strokeWidth: 0.052, // The thickness
+        color: '#000000' // Fill color
+      },
+      limitMax: false,     // If false, max value increases automatically if value > maxValue
+      limitMin: false,     // If true, the min value of the gauge will be fixed
+      colorStart: '#DEDEDE',   // Colors
+      colorStop: '#D4D4D4',    // just experiment with them
+      strokeColor: '#E0E0E0',  // to see which ones work best for you
+      generateGradient: true,
+      highDpiSupport: true,     // High resolution support
+      // renderTicks is Optional
+      renderTicks: {
+        divisions: 10,
+        divWidth: 1.5,
+        divLength: 0.64,
+        divColor: '#333333',
+        subDivisions: 10,
+        subLength: 0.35,
+        subWidth: 0.7,
+        subColor: '#666666'
+      }
+    };
+    var target = document.getElementById('gain-dial'); // your canvas element
+    var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+    gauge.maxValue = 10; // set max gauge value
+    gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+    gauge.animationSpeed = 10; // set animation speed (32 is default value)
+    gauge.set(0); // set actual value
+    let f = 0.2;
+    function evaluate(value) {
+        if (document.getElementById("changer").value <= 9) {
+            document.getElementById("dist").textContent = "Very close < 850m";
+        }
+        else {
+            document.getElementById("dist").textContent = `Distance: ${Math.floor((0.99*value-1.80)*5000)}m`;
+        }
+    }
+    function gauge_change() {
+        var changer = document.getElementById("changer").value * f;
+        var gain = document.getElementById("gain-value");
+        gauge.set(changer);
+        gain.textContent = `Gain: ${Math.floor10(changer, -1)}`;
+        evaluate(changer);
+    }
+</script>
+</html>
