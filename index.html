@@ -1,38 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" data-selected-theme="dark">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <link rel="stylesheet" href="variables.css" type="text/css">
-<head>
-    <meta charset="UTF-8">
-    <title>Wolfpack game calculator</title>
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
-</head>
-<body>
-    <div class="container">
-        <img class="logo" src="https://static.wikia.nocookie.net/wolfpack/images/1/18/Wolfpack_Logo.jpg">
-        <h1 class="head-label">Wolfpack Calculator</h1>
-    </div>
-    <div class="container">
-        <div class="hydrophone">
-            <h2 style="margin: 10px 60px 20px;">Hydrophone gain</h2>
-            <canvas id="dial-gain" width="300" height="300"></canvas>
-            <input class="dial-slider" id="dial-slider" type="range" 
-                   min="0" max="50" step="-1" value="0"
-                   oninput="gauge_change();">
-            <p id="dist" class="represent-text">Distance:</p>
-            <p id="gain-value" class="represent-text">Gain:</p>
-        </div>
-        <div class="tdc">
-            <h2 style="margin: 10px 60px 20px;">TDC calculating</h2>
-            <h3>ПОКА</h3>
-            <h4>ТУТ</h4>
-            <h5>НИЧЕГО</h5>
-            <h6>НЕТ</h6>
-        </div>
-    </div>
-
-</body>
-<script src="http://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
-<script src="evaluating.js"></script>
-<script src="index.js"></script>
+<html lang="en" data-selected-theme="dark">
+	<head>
+		<link rel="stylesheet" href="src/style.css" type="text/css" />
+		<link rel="stylesheet" href="src/variables.css" type="text/css" />
+		<meta charset="UTF-8" />
+		<title>Wolfpack game documentation</title>
+	</head>
+	<body>
+		<div class="container">
+			<img class="logo" src="https://static.wikia.nocookie.net/wolfpack/images/1/18/Wolfpack_Logo.jpg" />
+			<h1 id="head-label">Wolfpack documentation</h1>
+		</div>
+		<div class="container">
+			<div class="widget" id="hydrophone">
+				<h2>Hydrophone gain</h2>
+				<canvas id="dial-gain" width="300" height="300"></canvas>
+				<input id="dial-slider" type="range" min="0" max="100" step="-1" value="0" oninput="gaugeChange();" />
+				<p id="dist" class="represent-text">Distance: Unknown</p>
+				<p id="gain-value" class="represent-text">Gain: 0</p>
+			</div>
+			<div class="widget" id="tdc">
+				<h2>TDC Calculating</h2>
+				<div class="periscope-dist-widget">
+					<input type="text" class="data-input" placeholder="Base boat length" id="length-meters" />
+					<h3>Meters</h3>
+				</div>
+				<div class="periscope-dist-widget">
+					<input type="text" class="data-input" placeholder="Periscope divisions" id="periscope-divisions" />
+					<h3>Divisions</h3>
+				</div>
+				<div class="periscope-dist-widget">
+					<input type="text" class="data-input-optional" placeholder="Timer seconds" id="timer-seconds" />
+					<h3>Seconds</h3>
+				</div>
+				<div class="periscope-dist-widget">
+					<input type="radio" class="periscope-x" id="periscope-1.5x" value="1" checked />
+					<a>Periscope 1.5x</a>
+				</div>
+				<div class="periscope-dist-widget">
+					<input type="radio" class="periscope-x" id="periscope-6x" value="2" />
+					<a>Periscope 6x</a>
+				</div>
+				<div id="tdc-data">
+					<a id="tdc-dist" class="represent-text">Distance: Unknown</a>
+					<a id="tdc-speed" class="represent-text">Speed: Unknown</a>
+				</div>
+			</div>
+		</div>
+		<div id="doc-window" class="expanding-window">
+			<div class="doc-btn-wrapper">
+				<button id="doc-reveal-btn" onclick="docWndChange()">Open documentation</button>
+			</div>
+			<div id="doc"></div>
+		</div>
+	</body>
+	<script src="http://bernii.github.io/gauge.js/dist/gauge.min.js"></script>
+	<script src="src/constants.js"></script>
+	<script src="src/evaluating.js"></script>
+	<script src="src/gauge.js"></script>
+	<script src="src/index.js"></script>
 </html>
