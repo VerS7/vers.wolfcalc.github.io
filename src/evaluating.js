@@ -37,7 +37,7 @@ const gainToDistance = (gain_value) => {
 
 const calculateTdcDist = (boat_length, periscope_divisions, x) => {
 	dist = (boat_length / periscope_divisions) * x;
-	if (dist.isNaN || dist === Infinity || speed === undefined) {
+	if (dist.isNaN || dist === Infinity || dist === undefined) {
 		return 0;
 	}
 	return dist;
