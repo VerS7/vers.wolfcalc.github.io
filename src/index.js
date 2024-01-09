@@ -16,6 +16,7 @@ let doc = document.getElementById("doc");
 let docSrc = null;
 let docWndState = false;
 
+// Doc file with localization
 const userLanguage = navigator.language;
 
 if (userLanguage.startsWith("ru")) {
