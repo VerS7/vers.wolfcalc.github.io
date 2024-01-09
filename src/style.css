@@ -54,6 +54,12 @@ a {
 	margin-bottom: 15px;
 	display: block;
 	z-index: 10;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+.expanding-window::-webkit-scrollbar {
+	display: none;
 }
 
 .doc-btn-wrapper {
@@ -61,6 +67,8 @@ a {
 	align-items: center;
 	margin: 5px;
 	border-bottom: solid var(--border-color);
+	position: sticky;
+	top: 0;
 }
 
 #doc {
@@ -185,12 +193,20 @@ a {
 	flex-direction: row;
 	margin-top: 15px;
 	margin-left: 5px;
+	margin-right: 50px;
 	width: auto;
 }
 
 .block-content table {
 	padding: 0;
 	border: 1px solid gray;
+	height: 100%;
+	width: auto;
+}
+
+.block-content th {
+	text-align: left;
+	min-width: 200px;
 }
 
 .block-content td {
@@ -205,9 +221,9 @@ a {
 	padding: 10px;
 }
 
-.content-element > a {
-	text-align: justify;
-	margin-bottom: 10px;
+.content-element > p {
+	margin-top: 5px;
+	margin-bottom: 5px;
 	font-size: 16px;
 	font-weight: normal;
 }
