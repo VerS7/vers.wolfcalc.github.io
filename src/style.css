@@ -72,7 +72,8 @@ a {
 }
 
 #doc-reveal-btn {
-	margin: 10px;
+	width: 100%;
+	text-align: left;
 	font-size: 20px;
 	font-weight: bold;
 	background-color: var(--color-background-overlay);
